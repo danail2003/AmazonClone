@@ -1,19 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Product = () => {
+const Product = ({ title, price, rating, image }) => {
     return (
         <Container>
             <Title>
-                Apple iPhone 12 Pro, 128GB, Gold - Fully Unlocked (Renewed)
+                {title}
             </Title>
             <Price>
-                $1,000.00
+                ${price}
             </Price>
             <Rating>
-                ⭐⭐⭐⭐⭐
+                {
+                    Array(rating)
+                        .fill()
+                        .map(r => <span>⭐</span>)
+                }
             </Rating>
-            <Image src="https://m.media-amazon.com/images/I/71LbB2+EOZL._AC_SX679_.jpg" />
+            <Image src={image} />
             <ActionSection>
                 <AddToCartButton>
                     Add to Cart
