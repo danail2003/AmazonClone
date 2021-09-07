@@ -30,13 +30,16 @@ const Home = () => {
             </Banner>
             <Content>
                 {
-                    products.map((data, index) => {
-                        return (<Product key={index}
-                            title={data.product.title}
-                            price={data.product.price}
-                            rating={data.product.rating}
-                            image={data.product.image}
-                        />)
+                    products.map((data) => {
+                        return (
+                            <Product key={data.id}
+                                id={data.id}
+                                title={data.product.title}
+                                price={data.product.price}
+                                rating={data.product.rating}
+                                image={data.product.image}
+                            />
+                        )
                     })
                 }
             </Content>

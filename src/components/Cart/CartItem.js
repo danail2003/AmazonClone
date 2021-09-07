@@ -1,22 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CartItem = () => {
+const CartItem = ({ id, item }) => {
+    let options = [];
+
+    for (let i = 1; i < Math.max(item.quantity+1, 20); i++) {
+        options.push(<option value={i}>Qty: {i}</option>)
+    }
+
     return (
         <Container>
             <ImageContainer>
-                <img src={"https://m.media-amazon.com/images/I/61J6uczVvJL._AC_UY327_FMwebp_QL65_.jpg"} alt="product" />
+                <img src={item.image} alt="product" />
             </ImageContainer>
             <CartItemInfo>
                 <CartItemInfoTop>
-                    <h2>Apple</h2>
+                    <h2>{item.title}</h2>
                 </CartItemInfoTop>
                 <CartItemBottom>
-                    <CartItemQuantity>5</CartItemQuantity>
+                    <CartItemQuantity>
+                        <select value={item.quantity}>
+                            {options}
+                        </select>
+                    </CartItemQuantity>
                     <CartItemDelete>Delete</CartItemDelete>
                 </CartItemBottom>
             </CartItemInfo>
-            <CartItemPrice>$1000</CartItemPrice>
+            <CartItemPrice>${item.price}</CartItemPrice>
         </Container>
     )
 };
@@ -27,6 +37,7 @@ const Container = styled.div`
     padding-top: 12px;
     padding-bottom: 12px;
     display: flex;
+    border-bottom: 1px solid #DDD;
 `;
 
 const ImageContainer = styled.div`
@@ -43,7 +54,7 @@ const ImageContainer = styled.div`
 `;
 
 const CartItemInfo = styled.div`
-
+    flex-grow: 1;
 `;
 
 const CartItemInfoTop = styled.div`
@@ -56,10 +67,20 @@ const CartItemInfoTop = styled.div`
 const CartItemBottom = styled.div`
     display: flex;
     margin-top: 4px;
+    align-items: center;
 `;
 
 const CartItemQuantity = styled.div`
+    select {
+        border-radius: 7px;
+        background-color: #F0F2F2;
+        padding: 8px;
+        box-shadow: 0 2px 5px rgba(15,17,17,.15);
+    }
 
+    select:focus {
+        outline: none;
+    }
 `;
 
 const CartItemDelete = styled.div`
