@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { Link } from 'react-router-dom';
+import { db } from '../../firebase';
 
 const Header = () => {
+    const [cartItems, setCartItems] = useState([]);
+    let count = 0;
+
+    const getCount = () => {
+        db.collection('cartitems').onSnapshot((snapshot) => {
+            let tempData = [];
+
+            tempData = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                product: doc.data(),
+            }));
+
+            setCartItems(tempData);
+        });
+    };
+
+    useEffect(() => {
+        getCount();
+    }, []);
+
+    cartItems.forEach((item) => {
+        count += item.product.quantity;
+    });
+
     return (
         <div>
             <Container>
@@ -39,7 +64,7 @@ const Header = () => {
                     <HeaderOptionCart>
                         <Link to="/cart">
                             <ShoppingBasketIcon />
-                            <CartCount>4</CartCount>
+                            <CartCount>{count}</CartCount>
                         </Link>
                     </HeaderOptionCart>
                 </HeaderNavItems>
