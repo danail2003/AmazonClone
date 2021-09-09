@@ -15,6 +15,12 @@ const CartItem = ({ id, item }) => {
         });
     };
 
+    const deleteItem = (e) => {
+        e.preventDefault();
+
+        db.collection('cartitems').doc(id).delete();
+    };
+
     return (
         <Container>
             <ImageContainer>
@@ -30,7 +36,7 @@ const CartItem = ({ id, item }) => {
                             {options}
                         </select>
                     </CartItemQuantity>
-                    <CartItemDelete>Delete</CartItemDelete>
+                    <CartItemDelete onClick={deleteItem}>Delete</CartItemDelete>
                 </CartItemBottom>
             </CartItemInfo>
             <CartItemPrice>${item.price}</CartItemPrice>
