@@ -13,6 +13,7 @@ const Login = ({ setUser }) => {
                     photo: user.photoURL
                 };
 
+                localStorage.setItem('user', JSON.stringify(newUser));
                 setUser(newUser);
             })
             .catch((err) => {

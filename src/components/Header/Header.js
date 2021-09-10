@@ -6,7 +6,7 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { Link } from 'react-router-dom';
 import { db } from '../../firebase';
 
-const Header = ({ user }) => {
+const Header = ({ user, signOut }) => {
     const [cartItems, setCartItems] = useState([]);
     let count = 0;
 
@@ -53,7 +53,7 @@ const Header = ({ user }) => {
                     </HeaderSearchIconContainer>
                 </HeaderSearch>
                 <HeaderNavItems>
-                    <HeaderOptions>
+                    <HeaderOptions onClick={signOut}>
                         <OptionLineOne>Hello, {user.name}</OptionLineOne>
                         <OptionLineTwo>Account & Lists</OptionLineTwo>
                     </HeaderOptions>
@@ -147,6 +147,7 @@ const HeaderNavItems = styled.div`
 
 const HeaderOptions = styled.div`
     padding: 10px 9px 10px 9px;
+    cursor: pointer;
 `;
 
 const HeaderOptionCart = styled.div`

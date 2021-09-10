@@ -6,9 +6,18 @@ import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Login from './components/Login';
 import { useState } from 'react';
+import { auth } from './firebase';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+
+  const signOut = () => {
+    auth.signOut()
+    .then(() => {
+      localStorage.removeItem('user');
+      setUser(null);
+    })
+  };
 
   return (
     <Router>
@@ -17,7 +26,7 @@ function App() {
           <Login setUser={setUser} />
         ) : (
           <div className="App">
-            <Header user={user} />
+            <Header signOut={signOut} user={user} />
             <Switch>
               <Route path="/cart">
                 <Cart />
