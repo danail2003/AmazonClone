@@ -55,6 +55,8 @@ Tests check whether the components render.
 ### - JS
 ### - HTML, CSS & styled components
 ### - react-router-dom
+### - materialUI
+### - react-number-format
 
 
 
